@@ -132,7 +132,7 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
                         int tempC = jsonObject2.optInt("tempC", 0);
                         int maxFeelslikeC = jsonObject2.optInt("maxFeelslikeC", 0);
                         int minFeelslikeC = jsonObject2.optInt("minFeelslikeC", 0);
-                        int avgFeelslikeC = jsonObject2.optInt("avgFeelslike", 0);
+                        int avgFeelslikeC = jsonObject2.optInt("avgFeelslikeC", 0);
                         int feelslikeC = jsonObject2.optInt("feelslikeC", 0);
                         int pop = jsonObject2.optInt("pop", 0);
                         String weather = jsonObject2.optString("weather", "no");
