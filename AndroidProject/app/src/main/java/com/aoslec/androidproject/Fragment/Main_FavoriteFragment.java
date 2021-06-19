@@ -1,22 +1,22 @@
 package com.aoslec.androidproject.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.aoslec.androidproject.Activity.MainActivity;
-import com.aoslec.androidproject.Adapter.WeatherAdapter;
-import com.aoslec.androidproject.Bean.WeatherBean;
+import com.aoslec.androidproject.Adapter.CurrentWeatherAdapter;
+import com.aoslec.androidproject.Adapter.DailyWeatherAdapter;
+import com.aoslec.androidproject.Adapter.HourlyWeatherAdapter;
+import com.aoslec.androidproject.Bean.CurrentWeatherBean;
+import com.aoslec.androidproject.Bean.DailyWeatherBean;
+import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.NetworkTask.NetworkTask;
 import com.aoslec.androidproject.R;
 
@@ -24,11 +24,13 @@ import java.util.ArrayList;
 
 public class Main_FavoriteFragment extends Fragment {
 
-    ArrayList<WeatherBean> weathers;
-    WeatherAdapter adapter;
+    ArrayList<CurrentWeatherBean> current_weathers;
+    ArrayList<HourlyWeatherBean> hourly_weathers;
+    ArrayList<DailyWeatherBean> daily_weathers;
+    DailyWeatherAdapter adapter;
     ListView listView;
 
-    String urlAddr="https://api.aerisapi.com/forecasts/seoul,korea?format=json&filter=3hr&limit=10&client_id=xUgGFiLRB82Ifc82XCGmi&client_secret=hKjZZ8ZKuC7ro0QFGCoWKyL9yhORoHKi9D4JdLCz";
+    String urlAddr=" https://api.openweathermap.org/data/2.5/onecall?lat=37.5642135&lon=127.0016985&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,8 +38,9 @@ public class Main_FavoriteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main_favorite, container, false);
 
-        listView=view.findViewById(R.id.lv_weatherList);
 
+
+        listView=view.findViewById(R.id.lv_weatherList);
         connectGetData();
 
         return view;
@@ -57,11 +60,11 @@ public class Main_FavoriteFragment extends Fragment {
 
     private void connectGetData(){
         try{
-            NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"select");
+            NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"daily");
             Object obj=networkTask.execute().get();
-            weathers= (ArrayList<WeatherBean>) obj;
+            daily_weathers= (ArrayList<DailyWeatherBean>) obj;
 
-            adapter=new WeatherAdapter(getContext(),R.layout.weather_list,weathers);
+            adapter=new DailyWeatherAdapter(getContext(),R.layout.daily_weather_list,daily_weathers);
             listView.setAdapter(adapter);
 
         }catch(Exception e){

@@ -6,76 +6,60 @@
     >
 
     <TextView
-        android:id="@+id/list_dateTimeISO"
+        android:id="@+id/list_timezone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_maxTempC"
+        android:id="@+id/list_current_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_minTempC"
+        android:id="@+id/list_current_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_avgTempC"
+        android:id="@+id/list_current_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_tempC"
+        android:id="@+id/list_current_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_maxFeelslikeC"
+        android:id="@+id/list_current_temp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_minFeelslikeC"
+        android:id="@+id/list_current_feels_like"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_avgFeelslikeC"
+        android:id="@+id/list_current_humidity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
     <TextView
-        android:id="@+id/list_feelslikeC"
+        android:id="@+id/list_current_uvi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <TextView
-        android:id="@+id/list_pop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
-    <TextView
-        android:id="@+id/list_weather"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <TextView
-        android:id="@+id/list_icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
 
 </LinearLayout>

@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> //네트워크 위치 측정
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> GPS 센서 사용
 
     <application
         android:allowBackup="true"
@@ -26,7 +28,8 @@
         <activity android:name=".Activity.ExplainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Activity.MainActivity"/>
 
-
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAaC9HiUuE8AareN2zNVDDuRqo_dZo7WTk"/>
     </application>
 
 </manifest>
