@@ -1,11 +1,18 @@
 package com.aoslec.androidproject.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.aoslec.androidproject.Adapter.MainTabAdapter;
 import com.aoslec.androidproject.R;
@@ -17,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 pager2;
     MainTabAdapter adapter;
+    final static int RValue=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,44 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(title);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    //메뉴 선택시
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.location:
+                Intent intent=new Intent(MainActivity.this,GPSActivity.class);
+                startActivityForResult(intent,RValue);
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+            case MainActivity.RValue:
+                TextView favorite_lat=findViewById(R.id.favorite_lat);
+                TextView favorite_long=findViewById(R.id.favorite_long);
+                TextView favorite_location=findViewById(R.id.favorite_location);
+//                textView.setText("Return Value : "+data.getStringExtra("result"));
+                break;
+            default:
+                break;
         }
     }
 

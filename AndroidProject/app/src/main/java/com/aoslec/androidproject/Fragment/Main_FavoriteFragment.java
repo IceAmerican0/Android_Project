@@ -1,5 +1,7 @@
 package com.aoslec.androidproject.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,8 +10,10 @@ import androidx.fragment.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.aoslec.androidproject.Activity.GPSActivity;
 import com.aoslec.androidproject.Activity.MainActivity;
 import com.aoslec.androidproject.Adapter.CurrentWeatherAdapter;
 import com.aoslec.androidproject.Adapter.DailyWeatherAdapter;
@@ -29,6 +33,7 @@ public class Main_FavoriteFragment extends Fragment {
     ArrayList<DailyWeatherBean> daily_weathers;
     DailyWeatherAdapter adapter;
     ListView listView;
+    Context context=null;
 
     String urlAddr=" https://api.openweathermap.org/data/2.5/onecall?lat=37.5642135&lon=127.0016985&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
 
