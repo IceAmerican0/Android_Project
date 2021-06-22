@@ -75,9 +75,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao8f4b4037c9a1029da55cfd56d5ff446f" />
+<!--                <data-->
+<!--                    android:host="oauth"-->
+<!--                    android:scheme="kakao8f4b4037c9a1029da55cfd56d5ff446f" />-->
             </intent-filter>
         </activity>
         <activity
