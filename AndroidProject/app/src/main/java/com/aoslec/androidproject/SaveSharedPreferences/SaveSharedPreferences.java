@@ -8,6 +8,9 @@ public class SaveSharedPreferences {
     static final String lang = "lang";
     static final String clothesColor = "clothesColor";
     static final String url = "url";
+    static final String Lat="Lat";
+    static final String Long="Long";
+    static final String Location="Location";
 
     //생성자
     public static SharedPreferences getSharedPreferences(Context ctx) {
@@ -56,6 +59,43 @@ public class SaveSharedPreferences {
         return getSharedPreferences(ctx).getString(clothesColor, "none/");
     }
 
+
+    //<위치 정보>
+    //값을 넣어줄때 사용
+    public static void setLat(Context ctx, String sLat) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Lat, sLat);
+        editor.apply();
+    }
+
+    //값을 불러올때 사용
+    public static String getLat(Context ctx) {
+        return getSharedPreferences(ctx).getString(Lat, "37.5642135");
+    }
+
+    //값을 넣어줄때 사용
+    public static void setLong(Context ctx, String sLong) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Long, sLong);
+        editor.apply();
+    }
+
+    //값을 불러올때 사용
+    public static String getLong(Context ctx) {
+        return getSharedPreferences(ctx).getString(Long, "127.0016985");
+    }
+
+    //값을 넣어줄때 사용
+    public static void setLocation(Context ctx, String sLocation) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Location, sLocation);
+        editor.apply();
+    }
+
+    //값을 불러올때 사용
+    public static String getLocation(Context ctx) {
+        return getSharedPreferences(ctx).getString(Location, "서울");
+    }
 
 
 }//--------------

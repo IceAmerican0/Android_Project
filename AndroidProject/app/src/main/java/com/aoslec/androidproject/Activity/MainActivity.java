@@ -99,18 +99,18 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.location:
                 Intent intent=new Intent(MainActivity.this,GPSActivity.class);
-                startActivityForResult(intent,0);
+                startActivity(intent);
                 break;
         }
 
         return true;
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
-            case 0:
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch(requestCode){
+//            case 0:
 //                TextView favorite_lat=findViewById(R.id.favorite_lat);
 //                TextView favorite_long=findViewById(R.id.favorite_long);
 //                TextView favorite_location=findViewById(R.id.favorite_location);
@@ -118,15 +118,15 @@ public class MainActivity extends AppCompatActivity {
 //                favorite_lat.setText("Lat : " + data.getStringExtra("Lat"));
 //                favorite_long.setText("Long : " + data.getStringExtra("Long"));
 //                favorite_location.setText("Location : " + data.getStringExtra("Location"));
-
-
-                Log.d("Message","Lat : "+data.getStringExtra("Lat"));
-                Log.d("Message","Long : "+data.getStringExtra("Long"));
-                Log.d("Message","Location : "+data.getStringExtra("Location"));
-                break;
-            default:
-                break;
-        }
-    }
+//
+//
+//                Log.d("Message","Lat : "+data.getStringExtra("Lat"));
+//                Log.d("Message","Long : "+data.getStringExtra("Long"));
+//                Log.d("Message","Location : "+data.getStringExtra("Location"));
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
 }
