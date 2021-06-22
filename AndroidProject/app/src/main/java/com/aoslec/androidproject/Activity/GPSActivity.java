@@ -437,6 +437,9 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
 
+        searchedLat=Double.toString(location.getLatitude());
+        searchedLong=Double.toString(location.getLongitude());
+        searchedLocation=markerTitle;
 
         currentMarker = mMap.addMarker(markerOptions);
 
