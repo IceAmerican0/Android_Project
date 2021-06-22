@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <!--api key-->
+    <string name="kakao_app_key" translatable="false">8f4b4037c9a1029da55cfd56d5ff446f</string>
+    <string name="kakaopay_app_key" translatable="false">8f4b4037c9a1029da55cfd56d5ff446f</string>
+    <string name="google_login_key" translatable="false">AIzaSyDF7zu10q9mWVw9GiEg7ZsIF70DiVagko8</string>
+
 
     <!--팁창-->
     <string name="explain_title1">오늘날씨 어때요?</string>

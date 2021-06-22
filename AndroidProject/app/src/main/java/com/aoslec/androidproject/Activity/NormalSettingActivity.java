@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.aoslec.androidproject.Language.LanguageManager;
 import com.aoslec.androidproject.R;
-import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.ShareVar.SaveSharedPreferences;
 
 public class NormalSettingActivity extends AppCompatActivity {
 

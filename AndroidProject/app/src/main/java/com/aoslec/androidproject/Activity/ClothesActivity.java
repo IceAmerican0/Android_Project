@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 
 import com.aoslec.androidproject.R;
-import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.ShareVar.SaveSharedPreferences;
 import com.bumptech.glide.Glide;
 
 public class ClothesActivity extends AppCompatActivity {

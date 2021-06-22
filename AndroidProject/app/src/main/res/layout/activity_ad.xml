@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AdActivity"
     android:padding="30dp"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
     <LinearLayout
         android:orientation="horizontal"

@@ -2,7 +2,6 @@ package com.aoslec.androidproject.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -13,13 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aoslec.androidproject.Adapter.MainTabAdapter;
 import com.aoslec.androidproject.R;
+import com.aoslec.androidproject.ShareVar.SaveSharedPreferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -33,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        SaveSharedPreferences.setFirstVisitUser(MainActivity.this, "n");
 
         setTitle("날씨정보");
 
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setTitle(title);
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflate = getMenuInflater();
@@ -128,5 +125,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }
