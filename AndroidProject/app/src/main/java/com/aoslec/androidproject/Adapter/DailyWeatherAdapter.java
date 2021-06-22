@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.aoslec.androidproject.Bean.CurrentWeatherBean;
 import com.aoslec.androidproject.Bean.DailyWeatherBean;
 import com.aoslec.androidproject.R;
 
 import java.util.ArrayList;
-
 
 
 public class DailyWeatherAdapter extends BaseAdapter {

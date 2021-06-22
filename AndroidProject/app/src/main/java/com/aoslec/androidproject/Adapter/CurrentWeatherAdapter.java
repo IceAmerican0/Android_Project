@@ -13,7 +13,6 @@ import com.aoslec.androidproject.R;
 import java.util.ArrayList;
 
 
-
 public class CurrentWeatherAdapter extends BaseAdapter {
     private Context mcontext=null;
     private int layout=0;

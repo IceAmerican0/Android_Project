@@ -13,7 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aoslec.androidproject.Adapter.MainTabAdapter;
 import com.aoslec.androidproject.R;
@@ -25,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 pager2;
     MainTabAdapter adapter;
-    final static int RValue=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.location:
                 Intent intent=new Intent(MainActivity.this,GPSActivity.class);
-                startActivityForResult(intent,RValue);
+                startActivityForResult(intent,0);
                 break;
         }
 
@@ -108,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode){
-            case MainActivity.RValue:
-                TextView favorite_lat=findViewById(R.id.favorite_lat);
-                TextView favorite_long=findViewById(R.id.favorite_long);
-                TextView favorite_location=findViewById(R.id.favorite_location);
+            case 0:
+//                TextView favorite_lat=findViewById(R.id.favorite_lat);
+//                TextView favorite_long=findViewById(R.id.favorite_long);
+//                TextView favorite_location=findViewById(R.id.favorite_location);
 //
 //                favorite_lat.setText("Lat : " + data.getStringExtra("Lat"));
 //                favorite_long.setText("Long : " + data.getStringExtra("Long"));

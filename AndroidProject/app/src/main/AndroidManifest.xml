@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    //===================Gps 관련=================================================
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
@@ -16,6 +17,7 @@
     <uses-permission android:name="com.aoslec.androidproject.permission.MAPS_RECEIVE"/>
 
     <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+    //================================================================================
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidProject">
         <activity android:name=".Activity.GPSActivity"></activity>
+        <activity android:name=".Activity.ClothesActivity" />
+        <activity android:name=".Activity.NormalSettingActivity" />
+        <activity android:name=".Activity.AdminActivity" />
+        <activity android:name=".Activity.AdActivity" />
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -42,6 +48,7 @@
             android:name=".Activity.ExplainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Activity.MainActivity" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

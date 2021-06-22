@@ -106,10 +106,6 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.hide();
 
-        favorite_lat=findViewById(R.id.favorite_lat);
-        favorite_location=findViewById(R.id.favorite_location);
-        favorite_long=findViewById(R.id.favorite_long);
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

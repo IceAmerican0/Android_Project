@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.aoslec.androidproject.Activity.GPSActivity;
 import com.aoslec.androidproject.Activity.MainActivity;
@@ -34,6 +35,7 @@ public class Main_FavoriteFragment extends Fragment {
     DailyWeatherAdapter adapter;
     ListView listView;
     Context context=null;
+    TextView Long,Lat,location;
 
     String urlAddr=" https://api.openweathermap.org/data/2.5/onecall?lat=37.5642135&lon=127.0016985&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
 
@@ -43,7 +45,9 @@ public class Main_FavoriteFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main_favorite, container, false);
 
-
+//        Long=view.findViewById(R.id.favorite_long);
+//        Lat=view.findViewById(R.id.favorite_lat);
+//        location=view.findViewById(R.id.favorite_location);
 
         listView=view.findViewById(R.id.lv_weatherList);
         connectGetData();
