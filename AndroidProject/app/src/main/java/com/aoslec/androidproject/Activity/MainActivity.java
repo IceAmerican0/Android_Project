@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -111,7 +112,15 @@ public class MainActivity extends AppCompatActivity {
                 TextView favorite_lat=findViewById(R.id.favorite_lat);
                 TextView favorite_long=findViewById(R.id.favorite_long);
                 TextView favorite_location=findViewById(R.id.favorite_location);
-//                textView.setText("Return Value : "+data.getStringExtra("result"));
+//
+//                favorite_lat.setText("Lat : " + data.getStringExtra("Lat"));
+//                favorite_long.setText("Long : " + data.getStringExtra("Long"));
+//                favorite_location.setText("Location : " + data.getStringExtra("Location"));
+
+
+                Log.d("Message","Lat : "+data.getStringExtra("Lat"));
+                Log.d("Message","Long : "+data.getStringExtra("Long"));
+                Log.d("Message","Location : "+data.getStringExtra("Location"));
                 break;
             default:
                 break;

@@ -93,6 +93,12 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 
     Geocoder geocoder;
 
+    final static int ReturnV=0;
+
+    private String searchedLocation="";
+    private String searchedLat="";
+    private String searchedLong=""; // 검색한 위도 경도 위치 받아줄 변수
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,20 +134,20 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //======================================fragment 이용한 검색===========================
 
-//
-//        placeAutocomplete=(PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
-//        placeAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-//            @Override
-//            public void onPlaceSelected(Place place) {
-//                addMarker(place);
-//            }
-//
-//            @Override
-//            public void onError(Status status) {
-//
-//            }
-//        });
-//
+
+        placeAutocomplete=(PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
+        placeAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                addMarker(place);
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -174,7 +180,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
-//        setDefaultLocation();
+        setDefaultLocation();
 //
 //
 //
@@ -253,12 +259,20 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() { //마커 클릭시=======
             @Override
             public void onInfoWindowClick(@NonNull Marker marker) {
-                String Long=("Long : "+marker.getPosition().longitude);
-                String Lat=("Lat : "+marker.getPosition().latitude);
-                String Location=("위치 : "+marker.getSnippet());
-                Log.v(TAG,Long);
-                Log.v(TAG,Lat);
-                Log.v(TAG,Location);
+//                double Long=marker.getPosition().longitude;
+//                double Lat=marker.getPosition().latitude;
+//                String Location=marker.getSnippet();
+//
+                Intent intent=new Intent();
+                intent.putExtra("Long",searchedLong);
+                intent.putExtra("Lat",searchedLat);
+                intent.putExtra("Location",searchedLocation);
+                setResult(ReturnV,intent);
+                finish();
+
+                Log.d(TAG,searchedLat);
+                Log.d(TAG,searchedLong);
+                Log.d(TAG,searchedLocation);
             }
         });
 
@@ -602,31 +616,31 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
-    protected void search(List<Address> addresses){
-        Address address=addresses.get(0);
-        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+//    protected void search(List<Address> addresses){
+//        Address address=addresses.get(0);
+//        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+//
+//        String addressText = String.format(
+//                "%s, %s",
+//                address.getMaxAddressLineIndex() > 0 ? address
+//                        .getAddressLine(0) : " ", address.getFeatureName());
+//
+//
+//        favorite_long.setText("Long : "+address.getLongitude());
+//        favorite_lat.setText("Lat : "+address.getLatitude());
+//        favorite_location.setText("위치 : "+addressText);
+//
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(latLng);
+//        markerOptions.title(addressText);
+//
+//        mMap.clear();
+//        mMap.addMarker(markerOptions);
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+//    }
 
-        String addressText = String.format(
-                "%s, %s",
-                address.getMaxAddressLineIndex() > 0 ? address
-                        .getAddressLine(0) : " ", address.getFeatureName());
-
-
-        favorite_long.setText("Long : "+address.getLongitude());
-        favorite_lat.setText("Lat : "+address.getLatitude());
-        favorite_location.setText("위치 : "+addressText);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title(addressText);
-
-        mMap.clear();
-        mMap.addMarker(markerOptions);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-    }
-
-//===============================검색 기능================================================
+//===============================검색 메뉴================================================
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -640,42 +654,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                List<Address> addressList=null;
-                if(query.length()>0){
-                    try {
-                        // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
-                        addressList = geocoder.getFromLocationName(
-                                query, // 주소
-                                10); // 최대 검색 결과 개수
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    Log.d(TAG,addressList.get(0).toString());
-                    // 콤마를 기준으로 split
-                    String []splitStr = addressList.get(0).toString().split(",");
-                    String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length() - 2); // 주소
-                    Log.d(TAG,address);
-
-                    String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
-                    String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
-                    Log.d(TAG,latitude);
-                    Log.d(TAG,longitude);
-
-                    // 좌표(위도, 경도) 생성
-                    LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                    // 마커 생성
-                    MarkerOptions mOptions2 = new MarkerOptions();
-                    mOptions2.title(address);
-                    mOptions2.snippet("Lat : "+latitude+", Long : "+longitude);
-                    mOptions2.position(point);
-                    // 마커 추가
-                    mMap.addMarker(mOptions2);
-                    // 해당 좌표로 화면 줌
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
-                }
-
+                LocationSearch(query);
                 mSearch.collapseActionView();
                 return true;
             }
@@ -687,6 +666,47 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         });
 
         return true;
+    }
+
+
+    //====================검색 위치로 화면 전환 & 마커 표시=========================
+    private void LocationSearch(String query){
+        List<Address> addressList=null;
+        if(query.length()>0){
+            try {
+                // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
+                addressList = geocoder.getFromLocationName(
+                        query, // 주소
+                        10); // 최대 검색 결과 개수
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.d(TAG,addressList.get(0).toString());
+            // 콤마를 기준으로 split
+            String []splitStr = addressList.get(0).toString().split(",");
+            String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length() - 2); // 주소
+
+            String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
+            String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
+
+            // 좌표(위도, 경도) 생성
+            LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            // 마커 생성
+            MarkerOptions mOptions2 = new MarkerOptions();
+            mOptions2.title(address);
+            mOptions2.snippet("위도 : "+latitude+", 경도 : "+longitude);
+            mOptions2.position(point);
+            // 마커 추가
+            mMap.addMarker(mOptions2);
+            // 해당 좌표로 화면 줌
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+
+            searchedLat=latitude;
+            searchedLong=longitude;
+            searchedLocation=address;
+        }
     }
 
 }
