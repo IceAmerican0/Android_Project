@@ -158,7 +158,7 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
             for(int i=0;i<jsonArray1.length();i++){ //시간별 날짜 정보 jsonArray1 에서 처리
                 JSONObject jsonObject2=(JSONObject)jsonArray1.get(i);
                 long time=Long.parseLong(jsonObject2.optString("dt",""));
-                String hourly_time=unixToTime(time);
+                String hourly_time=unixToHourTime(time);
                 int hourly_temp=jsonObject2.optInt("temp",0);
                 int hourly_feels_like=jsonObject2.optInt("feels_like",0);
                 int hourly_humidity=jsonObject2.optInt("humidity",0);
@@ -180,7 +180,7 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
             for(int i=0;i<jsonArray2.length();i++){
                 JSONObject jsonObject4=(JSONObject)jsonArray2.get(i);
                 long time=Long.parseLong(jsonObject4.optString("dt",""));
-                String daily_time=unixToTime(time);
+                String daily_time=unixToDayTime(time);
                 int daily_temp_min=jsonObject4.getJSONObject("temp").optInt("min",0);
                 int daily_temp_max=jsonObject4.getJSONObject("temp").optInt("max",0);
                 int daily_feels_like=jsonObject4.getJSONObject("feels_like").optInt("day",0);
@@ -209,9 +209,17 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
 
 
     //unix 시간 변환
-    private String unixToTime(Long time){
+    private String unixToDayTime(Long time){
         Date date=new Date(time*1000L);
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf=new SimpleDateFormat("MM.dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+9"));
+        String formattedTime=sdf.format(date);
+        return formattedTime;
+    }
+
+    private String unixToHourTime(Long time){
+        Date date=new Date(time*1000L);
+        SimpleDateFormat sdf=new SimpleDateFormat("HH:00");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+9"));
         String formattedTime=sdf.format(date);
         return formattedTime;

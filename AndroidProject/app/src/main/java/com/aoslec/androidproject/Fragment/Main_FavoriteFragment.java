@@ -71,23 +71,23 @@ public class Main_FavoriteFragment extends Fragment {
     }
 
     private void connectGetData(){
-        try{
-            location.setText(SaveSharedPreferences.getLocation(getContext()));
-            Lat=SaveSharedPreferences.getLat(getContext());
-            Long=SaveSharedPreferences.getLong(getContext());
-
-            urlAddr="https://api.openweathermap.org/data/2.5/onecall?lat="+Lat+"&lon="+Long+"&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
-
-            NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"daily");
-            Object obj=networkTask.execute().get();
-            daily_weathers= (ArrayList<DailyWeatherBean>) obj;
-
-            adapter=new DailyWeatherAdapter(getContext(),R.layout.daily_weather_list,daily_weathers);
-            listView.setAdapter(adapter);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            location.setText(SaveSharedPreferences.getLocation(getContext()));
+//            Lat=SaveSharedPreferences.getLat(getContext());
+//            Long=SaveSharedPreferences.getLong(getContext());
+//
+//            urlAddr="https://api.openweathermap.org/data/2.5/onecall?lat="+Lat+"&lon="+Long+"&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
+//
+//            NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"daily");
+//            Object obj=networkTask.execute().get();
+//            daily_weathers= (ArrayList<DailyWeatherBean>) obj;
+//
+//            adapter=new DailyWeatherAdapter(getContext(),R.layout.daily_weather_list,daily_weathers);
+//            listView.setAdapter(adapter);
+//
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
     }
 
 }

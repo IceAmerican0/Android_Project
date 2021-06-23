@@ -7,13 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.aoslec.androidproject.Bean.DailyWeatherBean;
+import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 
-public class DailyWeatherAdapter extends BaseAdapter {
+public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder> {
     private Context mcontext=null;
     private int layout=0;
     private ArrayList<DailyWeatherBean> data=null;
@@ -26,50 +33,57 @@ public class DailyWeatherAdapter extends BaseAdapter {
         this.inflater= (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView list_daily_pop,list_daily_temp_min,list_daily_temp_max,list_daily_time;
+        public LottieAnimationView daily_LAweather;
+        public int hourly_id;
+        public ViewHolder(View convertView){
+            super(convertView);
+            list_daily_pop = convertView.findViewById(R.id.list_daily_pop);
+            list_daily_temp_min = convertView.findViewById(R.id.list_daily_temp_max);
+            list_daily_temp_max = convertView.findViewById(R.id.list_daily_temp_min);
+            list_daily_time = convertView.findViewById(R.id.list_daily_time);
+            daily_LAweather=convertView.findViewById(R.id.daily_LAweather);
+        }
+    }
+
+    @NonNull
+    @NotNull
     @Override
-    public int getCount() {
+    public DailyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_day_weather,parent,false);
+        ViewHolder viewHolder=new ViewHolder(v);
+        return viewHolder;
+    }
+
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.list_daily_pop.setText("강수확률 : " + data.get(position).getDaily_pop()+"°");
+        holder.list_daily_temp_max.setText("최고 : " + data.get(position).getDaily_temp_max()+"°");
+        holder.list_daily_temp_min.setText("최저 : " + data.get(position).getDaily_temp_min()+"°");
+        holder.list_daily_time.setText(data.get(position).getDaily_time());
+
+        int id=data.get(position).getDaily_id();
+
+        if(id>=200&&id<=232) holder.daily_LAweather.setAnimation(R.raw.thunder_rain);
+        else if(id>=300&&id<=321) holder.daily_LAweather.setAnimation(R.raw.rainy);
+        else if(id>=500&&id<=531) holder.daily_LAweather.setAnimation(R.raw.rain);
+        else if(id>=600&&id<=622) holder.daily_LAweather.setAnimation(R.raw.snow);
+        else if(id==800) holder.daily_LAweather.setAnimation(R.raw.sunny);
+        else if(id>=800&&id<=802) holder.daily_LAweather.setAnimation(R.raw.cloudy_sun);
+        else if(id>=803) holder.daily_LAweather.setAnimation(R.raw.cloudy);
+        else holder.daily_LAweather.setAnimation(R.raw.cloudy);
+
+    }
+
+    @Override
+    public int getItemCount() {
         return data.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return data.get(position).getDaily_id();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(this.layout, parent, false);
-
-        TextView list_daily_id = convertView.findViewById(R.id.list_daily_id);
-        TextView list_daily_description = convertView.findViewById(R.id.list_daily_description);
-        TextView list_daily_feels_like = convertView.findViewById(R.id.list_daily_feels_like);
-        TextView list_daily_humidity = convertView.findViewById(R.id.list_daily_humidity);
-        TextView list_daily_main = convertView.findViewById(R.id.list_daily_main);
-        TextView list_daily_pop = convertView.findViewById(R.id.list_daily_pop);
-        TextView list_daily_temp_min = convertView.findViewById(R.id.list_daily_temp_max);
-        TextView list_daily_temp_max = convertView.findViewById(R.id.list_daily_temp_min);
-        TextView list_daily_time = convertView.findViewById(R.id.list_daily_time);
-        TextView list_daily_uvi = convertView.findViewById(R.id.list_daily_uvi);
 
 
-
-        list_daily_pop.setText("강수확률 : " + data.get(position).getDaily_pop()+"%");
-        list_daily_description.setText("상태 : " + data.get(position).getDaily_description());
-        list_daily_main.setText("날씨 : " + data.get(position).getDaily_main());
-        list_daily_id.setText("id : " + data.get(position).getDaily_id());
-        list_daily_feels_like.setText("체감온도 : " + data.get(position).getDaily_feels_like()+"도");
-        list_daily_humidity.setText("습도 : " + data.get(position).getDaily_humidity()+"%");
-        list_daily_temp_max.setText("최고온도 : " + data.get(position).getDaily_temp_max()+"도");
-        list_daily_temp_min.setText("최저온도 : " + data.get(position).getDaily_temp_min()+"도");
-        list_daily_time.setText("날짜 : " + data.get(position).getDaily_time());
-        list_daily_uvi.setText("자외선 : " + data.get(position).getDaily_uvi());
-
-        return convertView;
-    }
 }
+
 
