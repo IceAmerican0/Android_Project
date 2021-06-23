@@ -38,6 +38,7 @@
                         android:src="@drawable/ic_nowlocation" />
 
                     <TextView
+                        android:id="@+id/main_tvLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
@@ -48,60 +49,61 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:text="   23º"
-                    android:textColor="@color/black"
-                    android:textSize="70dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/main_tvTemp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="   23º"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="70dp" />-->
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/cover"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="30dp"
-                    android:scaleType="centerCrop"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/rain" />
+<!--                <com.airbnb.lottie.LottieAnimationView-->
+<!--                    android:id="@+id/main_LAcover"-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="300dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_margin="30dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    app:lottie_autoPlay="true"-->
+<!--                    app:lottie_loop="true"-->
+<!--                    app:lottie_rawRes="@raw/rain" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="오늘의 옷 추천"
-                    android:textColor="@color/black"
-                    android:textSize="30dp"
-                    android:layout_marginBottom="20dp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="오늘의 옷 추천"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="30dp"-->
+<!--                    android:layout_marginBottom="20dp"/>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="30dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginBottom="30dp">-->
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/i_a" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="15dp"-->
+<!--                        android:src="@drawable/i_a" />-->
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/i_b" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="15dp"-->
+<!--                        android:src="@drawable/i_b" />-->
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginLeft="15dp"
-                        android:src="@drawable/i_c" />
-                </LinearLayout>
+<!--                    <ImageView-->
+<!--                        android:layout_width="80dp"-->
+<!--                        android:layout_height="80dp"-->
+<!--                        android:layout_marginLeft="15dp"-->
+<!--                        android:src="@drawable/i_c" />-->
+<!--                </LinearLayout>-->
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -126,10 +128,12 @@
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weather_rvHour"
+                    android:id="@+id/main_rvHourWeather"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+<!--                    android:scrollbars="horizontal"-->
+
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -154,11 +158,12 @@
                     android:textColor="@color/black"
                     />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weather_rvDay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/main_rvDayWeather"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                    />-->
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

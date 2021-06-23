@@ -7,13 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 
-public class HourlyWeatherAdapter extends BaseAdapter {
+public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdapter.ViewHolder> {
     private Context mcontext=null;
     private int layout=0;
     private ArrayList<HourlyWeatherBean> data=null;
@@ -26,46 +31,37 @@ public class HourlyWeatherAdapter extends BaseAdapter {
         this.inflater= (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView hourly_time,hourly_temp,hourly_pop;
+        public int hourly_id;
+        public ViewHolder(View convertView){
+            super(convertView);
+            hourly_time = convertView.findViewById(R.id.Hourly_time);
+            hourly_temp=convertView.findViewById(R.id.Hourly_temp);
+            hourly_pop=convertView.findViewById(R.id.Hourly_pop);
+        }
+    }
+
+    @NonNull
+    @NotNull
     @Override
-    public int getCount() {
+    public HourlyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_hourly_weather,parent,false);
+        ViewHolder viewHolder=new ViewHolder(v);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull HourlyWeatherAdapter.ViewHolder holder, int position) {
+       holder.hourly_temp.setText(data.get(position).getHourly_temp()+"°");
+       holder.hourly_pop.setText(data.get(position).getHourly_pop()+"°");
+       holder.hourly_time.setText(data.get(position).getHourly_time());
+    }
+
+    @Override
+    public int getItemCount() {
         return data.size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return data.get(position).getHourly_id();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = inflater.inflate(this.layout, parent, false);
-
-        TextView list_hourly_id = convertView.findViewById(R.id.list_hourly_id);
-        TextView list_hourly_description = convertView.findViewById(R.id.list_hourly_description);
-        TextView list_hourly_feels_like = convertView.findViewById(R.id.list_hourly_feels_like);
-        TextView list_hourly_humidity = convertView.findViewById(R.id.list_hourly_humidity);
-        TextView list_hourly_main = convertView.findViewById(R.id.list_hourly_main);
-        TextView list_hourly_pop = convertView.findViewById(R.id.list_hourly_pop);
-        TextView list_hourly_temp = convertView.findViewById(R.id.list_hourly_temp);
-        TextView list_hourly_time = convertView.findViewById(R.id.list_hourly_time);
-        TextView list_hourly_uvi = convertView.findViewById(R.id.list_hourly_uvi);
-
-        list_hourly_pop.setText("강수확률 : " + data.get(position).getHourly_pop());
-        list_hourly_description.setText("상태 : " + data.get(position).getHourly_description());
-        list_hourly_main.setText("날씨 : " + data.get(position).getHourly_main());
-        list_hourly_id.setText("id : " + data.get(position).getHourly_id());
-        list_hourly_feels_like.setText("체감온도 : " + data.get(position).getHourly_feels_like()+"도");
-        list_hourly_humidity.setText("습도 : " + data.get(position).getHourly_humidity()+"%");
-        list_hourly_temp.setText("현재온도 : " + data.get(position).getHourly_temp()+"도");
-        list_hourly_time.setText("현재시간 : " + data.get(position).getHourly_time());
-        list_hourly_uvi.setText("자외선 : " + data.get(position).getHourly_uvi());
-
-        return convertView;
-    }
 }
 
