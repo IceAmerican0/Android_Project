@@ -1,6 +1,7 @@
 package com.aoslec.androidproject.Adapter;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aoslec.androidproject.Activity.GPSActivity;
-import com.aoslec.androidproject.Bean.FavoriteLocationBean;
+import com.aoslec.androidproject.Bean.FavoriteHistoryBean;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.sqLite.FavoriteInfo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,10 +23,10 @@ import java.util.ArrayList;
 public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistoryAdapter.ViewHolder> {
     private Context mcontext=null;
     private int layout=0;
-    private ArrayList<FavoriteLocationBean> data=null;
+    private ArrayList<FavoriteHistoryBean> data=null;
     private LayoutInflater inflater=null;
 
-    public FavoriteHistoryAdapter(Context mcontext, int layout, ArrayList<FavoriteLocationBean> data) {
+    public FavoriteHistoryAdapter(Context mcontext, int layout, ArrayList<FavoriteHistoryBean> data) {
         this.mcontext = mcontext;
         this.layout = layout;
         this.data = data;
@@ -35,10 +36,12 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView history_location;
         public ImageView history_heart;
+        public FavoriteInfo favoriteInfo;
         public ViewHolder(View convertView){
             super(convertView);
             history_location=convertView.findViewById(R.id.history_location);
             history_heart=convertView.findViewById(R.id.history_heart);
+            favoriteInfo=new FavoriteInfo(convertView.getContext());
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,6 +54,30 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
                         SaveSharedPreferences.setLocation(convertView.getContext(), data.get(position).getLocation());
                     }
 
+                }
+            });
+
+            history_heart.setOnClickListener(new View.OnClickListener() {
+                SQLiteDatabase DB;
+                @Override
+                public void onClick(View v) {
+                    DB=favoriteInfo.getWritableDatabase();
+                    int position=getAdapterPosition();
+                    int id=data.get(position).getId();
+
+                    if(position!=RecyclerView.NO_POSITION){
+                        if(v.isSelected()) {
+                            v.setSelected(false);
+                            String query = "UPDATE favorite set heart='N' where id='" + id + "';";
+                            DB.execSQL(query);
+                            history_heart.setImageResource(R.drawable.ic_favorite);
+                        }else{
+                            v.setSelected(true);
+                            String query = "UPDATE favorite set heart='Y' where id='" + id + "';";
+                            DB.execSQL(query);
+                            history_heart.setImageResource(R.drawable.ic_favorite_red);
+                        }
+                    }
                 }
             });
         }
@@ -66,9 +93,8 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
     @Override
     public void onBindViewHolder(@NonNull @NotNull FavoriteHistoryAdapter.ViewHolder holder, int position) {
         holder.history_location.setText(data.get(position).getLocation());
-        holder.history_heart.setImageResource(R.drawable.ic_favorite);
-//        if(data.get(position).getHeart().equals("Y")) holder.history_heart.;
-//        else holder.history_heart;
+        if(data.get(position).getHeart().equals("Y")) holder.history_heart.setImageResource(R.drawable.ic_favorite_red);
+        else holder.history_heart.setImageResource(R.drawable.ic_favorite);
     }
 
     @Override
