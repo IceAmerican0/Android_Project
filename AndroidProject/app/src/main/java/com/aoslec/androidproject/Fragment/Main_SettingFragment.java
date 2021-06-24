@@ -111,7 +111,7 @@ public class Main_SettingFragment extends Fragment {
         if (SaveSharedPreferences.getPrefImage(getContext()) != null) {
             Glide.with(this).load(SaveSharedPreferences.getPrefImage(getContext())).into(profile);
         }else {
-            Glide.with(this).load(R.drawable.kakao_default_profile_image).into(profile);
+//            Glide.with(this).load(R.drawable.kakao_default_profile_image).into(profile);
         }
         if (SaveSharedPreferences.getPrefEmail(getContext()) != null) {
             sign_out_btn.setVisibility(View.VISIBLE);
@@ -131,15 +131,6 @@ public class Main_SettingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //액션바 타이틀 변경
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            ((MainActivity) activity).setActionBarTitle("설정");
-            // getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle("Setting");
-        }
     }
     View.OnClickListener logoutAction = new View.OnClickListener() {
         @Override

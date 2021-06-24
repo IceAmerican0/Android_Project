@@ -3,6 +3,8 @@ package com.aoslec.androidproject.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aoslec.androidproject.Activity.GPSActivity;
 import com.aoslec.androidproject.Activity.MainActivity;
@@ -22,26 +25,20 @@ import com.aoslec.androidproject.Adapter.DailyWeatherAdapter;
 import com.aoslec.androidproject.Adapter.HourlyWeatherAdapter;
 import com.aoslec.androidproject.Bean.CurrentWeatherBean;
 import com.aoslec.androidproject.Bean.DailyWeatherBean;
+import com.aoslec.androidproject.Bean.FavoriteLocationBean;
 import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.NetworkTask.NetworkTask;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.sqLite.FavoriteInfo;
 
 import java.util.ArrayList;
 
 public class Main_FavoriteFragment extends Fragment {
 
-    ArrayList<CurrentWeatherBean> current_weathers;
-    ArrayList<HourlyWeatherBean> hourly_weathers;
-    ArrayList<DailyWeatherBean> daily_weathers;
-    DailyWeatherAdapter adapter;
-    ListView listView;
-    Context context=null;
-    TextView location;
-
-    String urlAddr="";
-    String Lat="37.5642135";
-    String Long="127.0016985";
+    FavoriteInfo favoriteInfo;
+    SQLiteDatabase DB;
+    ArrayList<FavoriteLocationBean> favoriteLocations;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,23 +59,30 @@ public class Main_FavoriteFragment extends Fragment {
     }
 
     private void connectGetData(){
-//        try{
-//            location.setText(SaveSharedPreferences.getLocation(getContext()));
-//            Lat=SaveSharedPreferences.getLat(getContext());
-//            Long=SaveSharedPreferences.getLong(getContext());
-//
-//            urlAddr="https://api.openweathermap.org/data/2.5/onecall?lat="+Lat+"&lon="+Long+"&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
-//
-//            NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"daily");
-//            Object obj=networkTask.execute().get();
-//            daily_weathers= (ArrayList<DailyWeatherBean>) obj;
-//
-//            adapter=new DailyWeatherAdapter(getContext(),R.layout.daily_weather_list,daily_weathers);
-//            listView.setAdapter(adapter);
-//
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+        try{
+            DB=favoriteInfo.getWritableDatabase();
+            String query="select * from favorite order by id desc;";
+            StringBuffer stringBuffer=new StringBuffer();
+            Cursor cursor=DB.rawQuery(query,null);
+            while(cursor.moveToNext()){
+                int id=cursor.getInt(0);
+                String location=cursor.getString(1);
+                String latitude=cursor.getString(2);
+                String longitude=cursor.getString(3);
+                String heart=cursor.getString(4);
+
+                FavoriteLocationBean favoriteLocationBean=new FavoriteLocationBean(id,location,latitude,longitude,heart);
+                favoriteLocations.add(favoriteLocationBean);
+            }
+
+            cursor.close();
+            favoriteInfo.close();
+
+            Toast.makeText(getContext(),"Select OK!",Toast.LENGTH_SHORT).show();
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Select Error!",Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

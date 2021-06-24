@@ -2,6 +2,7 @@ package com.aoslec.androidproject.Activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,10 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aoslec.androidproject.Adapter.MainTabAdapter;
 import com.aoslec.androidproject.R;
-import com.aoslec.androidproject.ShareVar.SaveSharedPreferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,9 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        SaveSharedPreferences.setFirstVisitUser(MainActivity.this, "n");
-
-        setTitle("날씨정보");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         //상단 네비
         tabLayout = findViewById(R.id.Main_tabLayout);
@@ -71,58 +74,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }//c
+    }//onCreate
 
-    //액션바 타이틀 변경 메소드
-    public void setActionBarTitle(String title) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(title);
-        }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflate = getMenuInflater();
-        inflate.inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
-    //메뉴 선택시
+//                Intent intent=new Intent(MainActivity.this,GPSActivity.class);
+//                startActivity(intent);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-
-            case R.id.location:
-                Intent intent=new Intent(MainActivity.this,GPSActivity.class);
-                startActivity(intent);
-                break;
-        }
-
-        return true;
-    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch(requestCode){
-//            case 0:
-//                TextView favorite_lat=findViewById(R.id.favorite_lat);
-//                TextView favorite_long=findViewById(R.id.favorite_long);
-//                TextView favorite_location=findViewById(R.id.favorite_location);
-//
-//                favorite_lat.setText("Lat : " + data.getStringExtra("Lat"));
-//                favorite_long.setText("Long : " + data.getStringExtra("Long"));
-//                favorite_location.setText("Location : " + data.getStringExtra("Location"));
-//
-//
-//                Log.d("Message","Lat : "+data.getStringExtra("Lat"));
-//                Log.d("Message","Long : "+data.getStringExtra("Long"));
-//                Log.d("Message","Location : "+data.getStringExtra("Location"));
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 }

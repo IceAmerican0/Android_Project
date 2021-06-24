@@ -19,31 +19,28 @@
         android:padding="5dp"
         >
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_search"
-            android:layout_marginLeft="15dp"
-            />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_weight="9"
             android:hint="검색할 지역을 입력하세요"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
             android:textSize="10dp"
             android:gravity="center|left"
             />
 
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="10dp"
+            android:gravity="center|right"
+            />
+
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="아래는 즐겨찾기 한 공간"
-        />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -51,6 +48,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/round"
         android:padding="10dp"
+        android:layout_marginTop="10dp"
         >
 
         <ImageView
@@ -126,12 +124,6 @@
             />
 
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="클릭시 아래 창 보임"
-        />
 
 
     <ImageView

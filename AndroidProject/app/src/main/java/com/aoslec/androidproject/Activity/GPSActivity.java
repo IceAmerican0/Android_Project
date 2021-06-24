@@ -11,6 +11,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.sqLite.FavoriteInfo;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -88,22 +90,23 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
 
-    TextView favorite_long,favorite_lat,favorite_location;
-
     PlaceAutocompleteFragment placeAutocomplete;
 
     Geocoder geocoder;
-
-    final static int ReturnV=0;
 
     private String searchedLocation="";
     private String searchedLat="";
     private String searchedLong=""; // 검색한 위도 경도 위치 받아줄 변수
 
+    FavoriteInfo favoriteInfo;
+    SQLiteDatabase DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("위치검색");
+
+        favoriteInfo=new FavoriteInfo(this);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -130,19 +133,22 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         //======================================fragment 이용한 검색===========================
 
 
-        placeAutocomplete=(PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
-        placeAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                addMarker(place);
-            }
-
-            @Override
-            public void onError(Status status) {
-
-            }
-        });
-
+//        placeAutocomplete=(PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
+//        placeAutocomplete.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place)
+//            {
+//                Location location=new Location("");
+//                location.setLatitude(place.getLatLng().latitude);
+//                location.setLongitude(place.getLatLng().longitude);
+//                addMarker(place);
+//            }
+//            @Override
+//            public void onError(Status status) {
+//
+//            }
+//        });
+//
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -254,18 +260,22 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() { //마커 클릭시=======
             @Override
             public void onInfoWindowClick(@NonNull Marker marker) {
-//                double Long=marker.getPosition().longitude;
-//                double Lat=marker.getPosition().latitude;
-//                String Location=marker.getSnippet();
-//
                 SaveSharedPreferences.setLat(GPSActivity.this,searchedLat);
                 SaveSharedPreferences.setLong(GPSActivity.this,searchedLong);
                 SaveSharedPreferences.setLocation(GPSActivity.this,searchedLocation);
-                finish();
+                try{
+                    DB=favoriteInfo.getWritableDatabase();
+                    String query="INSERT INTO favorite(location,latitude,longitude,heart) VALUES('"+searchedLocation+"','"+searchedLat+"','"+searchedLong+"','N');";
+                    DB.execSQL(query);
 
-                Log.d(TAG,searchedLat);
-                Log.d(TAG,searchedLong);
-                Log.d(TAG,searchedLocation);
+                    favoriteInfo.close();
+
+//                    Toast.makeText(GPSActivity.this,"Insert OK!",Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
+                    e.printStackTrace();
+//                    Toast.makeText(GPSActivity.this,"Insert Error!",Toast.LENGTH_SHORT).show();
+                }
+                finish();
             }
         });
 
@@ -453,7 +463,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         //디폴트 위치, Seoul
         LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
         String markerTitle = "위치정보 가져올 수 없음";
-        String markerSnippet = "위치 퍼미션과 GPS 활성 요부 확인하세요";
+        String markerSnippet = "위치 퍼미션과 GPS 활성 여부 확인하세요";
 
 
         if (currentMarker != null) currentMarker.remove();
@@ -599,7 +609,7 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (checkLocationServicesStatus()) {
                     if (checkLocationServicesStatus()) {
 
-                        Log.d(TAG, "onActivityResult : GPS 활성화 되있음");
+                        Log.d(TAG, "onActivityResult : GPS 활성화 돼있음");
 
 
                         needRequest = true;
@@ -679,10 +689,14 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
 
-            Log.d(TAG,addressList.get(0).toString());
+
             // 콤마를 기준으로 split
             String []splitStr = addressList.get(0).toString().split(",");
             String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length() - 2); // 주소
+
+            Log.d(TAG,"splitStr"+splitStr);
+            Log.d(TAG,"addressList : "+addressList.get(0).toString());
+            Log.d(TAG,"address"+address);
 
             String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
             String longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도

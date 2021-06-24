@@ -28,8 +28,11 @@ import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.NetworkTask.NetworkTask;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.sqLite.FavoriteInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Main_WeatherFragment extends Fragment {
@@ -47,7 +50,7 @@ public class Main_WeatherFragment extends Fragment {
 
     CurrentWeatherBean current_weather;
 
-    TextView main_tvTemp,main_tvLocation;
+    TextView main_tvTemp,main_tvLocation,main_time;
     LottieAnimationView main_laCover;
 
     private String Lat="";
@@ -71,11 +74,13 @@ public class Main_WeatherFragment extends Fragment {
         main_tvLocation=view.findViewById(R.id.main_tvLocation);
         main_laCover=view.findViewById(R.id.main_laCover);
         main_GPS=view.findViewById(R.id.main_GPS);
+        main_time=view.findViewById(R.id.main_time);
 
         Long=SaveSharedPreferences.getLong(getContext());
         Lat=SaveSharedPreferences.getLat(getContext());
         Location=SaveSharedPreferences.getLocation(getContext());
 
+        GetTime();
         GetCurrentData();
         GetHourlyData();
         GetDailyData();
@@ -99,9 +104,19 @@ public class Main_WeatherFragment extends Fragment {
         Lat=SaveSharedPreferences.getLat(getContext());
         Location=SaveSharedPreferences.getLocation(getContext());
 
+        GetTime();
         GetCurrentData();
         GetHourlyData();
         GetDailyData();
+    }
+
+    private void GetTime(){
+        long now=System.currentTimeMillis();
+        Date mDate=new Date(now);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM.dd  hh:mm");
+        String getTime=simpleDateFormat.format(mDate);
+
+        main_time.setText(getTime);
     }
 
     private void GetDailyData(){
