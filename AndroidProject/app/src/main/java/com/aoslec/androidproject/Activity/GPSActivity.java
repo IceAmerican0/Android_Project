@@ -270,10 +270,10 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     favoriteInfo.close();
 
-//                    Toast.makeText(GPSActivity.this,"Insert OK!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GPSActivity.this,"Insert OK!",Toast.LENGTH_SHORT).show();
                 }catch(Exception e){
                     e.printStackTrace();
-//                    Toast.makeText(GPSActivity.this,"Insert Error!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GPSActivity.this,"Insert Error!",Toast.LENGTH_SHORT).show();
                 }
                 finish();
             }

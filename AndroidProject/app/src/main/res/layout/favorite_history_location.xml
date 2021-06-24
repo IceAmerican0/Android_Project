@@ -14,16 +14,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="10dp">
 
         <ImageView
-            android:id="@+id/favorite_heart"
+            android:id="@+id/history_heart"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_favorite" />
+            android:src="@drawable/ic_favorite"/>
 
         <TextView
+            android:id="@+id/history_location"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"

@@ -46,17 +46,15 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
         }
     }
 
-    @NonNull
-    @NotNull
     @Override
-    public HourlyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public HourlyWeatherAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_hourly_weather,parent,false);
         ViewHolder viewHolder=new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull HourlyWeatherAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(HourlyWeatherAdapter.ViewHolder holder, int position) {
         holder.hourly_temp.setText("온도 : "+data.get(position).getHourly_temp()+"°");
         holder.hourly_pop.setText("강수 확률 : "+data.get(position).getHourly_pop()+"%");
         holder.hourly_time.setText(data.get(position).getHourly_time());

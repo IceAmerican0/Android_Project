@@ -17,6 +17,7 @@
         android:layout_height="50dp"
         android:background="@drawable/round"
         android:padding="5dp"
+        android:layout_marginBottom="10dp"
         >
 
 
@@ -41,89 +42,10 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        >
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_favorite"
-            android:layout_marginLeft="15dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="서울시 강남구"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:textSize="15dp"
-            android:gravity="center|left"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round"
-        android:padding="10dp"
-        android:layout_marginTop="15dp"
-        >
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_favorite"
-            android:layout_marginLeft="15dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="제주도 서귀포시"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:textSize="15dp"
-            android:gravity="center|left"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round"
-        android:padding="10dp"
-        android:layout_marginTop="15dp"
-        >
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_favorite"
-            android:layout_marginLeft="15dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="부산 사상구"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-            android:textSize="15dp"
-            android:gravity="center|left"
-            />
-
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_rvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
     <ImageView
