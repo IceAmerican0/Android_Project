@@ -1,5 +1,6 @@
 package com.aoslec.androidproject.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.aoslec.androidproject.Activity.GPSActivity;
 import com.aoslec.androidproject.Activity.MainActivity;
 import com.aoslec.androidproject.Adapter.CurrentWeatherAdapter;
 import com.aoslec.androidproject.Adapter.DailyWeatherAdapter;
@@ -35,6 +38,7 @@ public class Main_WeatherFragment extends Fragment {
     RecyclerView.Adapter hourlyAdapter;
     RecyclerView.Adapter dailyAdapter;
     RecyclerView.LayoutManager hourlylayoutManager,dailylayoutManager;
+    LinearLayout main_GPS;
 
 
     ArrayList<CurrentWeatherBean> current_weathers;
@@ -66,6 +70,7 @@ public class Main_WeatherFragment extends Fragment {
         main_tvTemp=view.findViewById(R.id.main_tvTemp);
         main_tvLocation=view.findViewById(R.id.main_tvLocation);
         main_laCover=view.findViewById(R.id.main_laCover);
+        main_GPS=view.findViewById(R.id.main_GPS);
 
         Long=SaveSharedPreferences.getLong(getContext());
         Lat=SaveSharedPreferences.getLat(getContext());
@@ -75,8 +80,13 @@ public class Main_WeatherFragment extends Fragment {
         GetHourlyData();
         GetDailyData();
 
-//        main_tvTemp.setText(Integer.toString(current_weather.getCurrent_temp())+"°");
-//        main_tvLocation.setText(Location);
+        main_GPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), GPSActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -84,12 +94,6 @@ public class Main_WeatherFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //액션바 타이틀 변경
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            ((MainActivity) activity).setActionBarTitle(getResources().getString(R.string.weather_title));
-        }
 
         Long=SaveSharedPreferences.getLong(getContext());
         Lat=SaveSharedPreferences.getLat(getContext());
@@ -138,6 +142,8 @@ public class Main_WeatherFragment extends Fragment {
         main_laCover=getActivity().findViewById(R.id.main_laCover);
         try{
             String urlAddr="https://api.openweathermap.org/data/2.5/onecall?lat="+Lat+"&lon="+Long+"&exclude=minutely&appid=5a19414be68e50e321e070dbbd70b3cf&units=metric ";
+
+            Log.d("main_weather",urlAddr);
 
             NetworkTask networkTask=new NetworkTask(getActivity(),urlAddr,"current");
             Object obj=networkTask.execute().get();

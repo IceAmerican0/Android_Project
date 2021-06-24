@@ -47,11 +47,6 @@ public class Main_SettingFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        //액션바 타이틀 변경
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            ((MainActivity) activity).setActionBarTitle(getResources().getString(R.string.setting_title));
-        }
     }
 
    View.OnClickListener onClickListener = new View.OnClickListener() {

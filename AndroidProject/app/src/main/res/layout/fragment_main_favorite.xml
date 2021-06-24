@@ -133,34 +133,13 @@
         android:text="클릭시 아래 창 보임"
         />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom|center"
             android:src="@drawable/ad" />
 
-        <TextView
-            android:id="@+id/favorite_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="123"
-            android:textSize="30dp"
-            />
-
-        <ListView
-            android:id="@+id/lv_weatherList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
-
-
-    </LinearLayout>
 
 
 

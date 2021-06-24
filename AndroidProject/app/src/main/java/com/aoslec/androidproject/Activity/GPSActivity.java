@@ -104,8 +104,6 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("위치검색");
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
