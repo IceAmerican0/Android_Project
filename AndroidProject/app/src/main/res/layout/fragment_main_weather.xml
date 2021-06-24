@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.Main_WeatherFragment"
     android:background="@color/color5"
-   >
+    >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,48 +25,73 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_nowlocation" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center|left"
-                        android:text="서울시 강남구"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
+                        <LinearLayout
+                            android:id="@+id/main_GPS"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_marginTop="15dp"
+                            android:orientation="horizontal"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_nowlocation" />
+
+                            <TextView
+                                android:id="@+id/main_tvLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center|left"
+                                android:text="서울시 강남구"
+                                android:textColor="@color/black"
+                                android:textSize="15dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/main_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="00월 00일 00:00"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:gravity="right|bottom"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/main_tvTemp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:text="   23º"
+                    android:text="23"
                     android:textColor="@color/black"
                     android:textSize="70dp" />
 
                 <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/cover"
+                    android:id="@+id/main_laCover"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     android:layout_margin="30dp"
                     android:scaleType="centerCrop"
                     app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/rain" />
+                    app:lottie_loop="true" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -126,10 +151,10 @@
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weather_rvHour"
+                    android:id="@+id/main_rvHourWeather"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content"/>
+
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -155,10 +180,9 @@
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/weather_rvDay"
+                    android:id="@+id/main_rvDailyWeather"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

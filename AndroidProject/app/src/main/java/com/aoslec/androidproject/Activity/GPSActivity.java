@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aoslec.androidproject.R;
+import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -103,8 +104,6 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("위치검색");
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.hide();
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -259,11 +258,9 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
 //                double Lat=marker.getPosition().latitude;
 //                String Location=marker.getSnippet();
 //
-                Intent intent=new Intent();
-                intent.putExtra("Long",searchedLong);
-                intent.putExtra("Lat",searchedLat);
-                intent.putExtra("Location",searchedLocation);
-                setResult(ReturnV,intent);
+                SaveSharedPreferences.setLat(GPSActivity.this,searchedLat);
+                SaveSharedPreferences.setLong(GPSActivity.this,searchedLong);
+                SaveSharedPreferences.setLocation(GPSActivity.this,searchedLocation);
                 finish();
 
                 Log.d(TAG,searchedLat);
@@ -441,7 +438,6 @@ public class GPSActivity extends AppCompatActivity implements OnMapReadyCallback
         searchedLat=Double.toString(location.getLatitude());
         searchedLong=Double.toString(location.getLongitude());
         searchedLocation=markerTitle;
-
 
         currentMarker = mMap.addMarker(markerOptions);
 
