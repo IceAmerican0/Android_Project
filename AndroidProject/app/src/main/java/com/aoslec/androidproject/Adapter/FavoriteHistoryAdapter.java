@@ -1,6 +1,7 @@
 package com.aoslec.androidproject.Adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aoslec.androidproject.Bean.FavoriteHistoryBean;
+import com.aoslec.androidproject.Bean.SelectBean;
+import com.aoslec.androidproject.Fragment.Main_FavoriteFragment;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
 import com.aoslec.androidproject.sqLite.FavoriteInfo;
@@ -37,11 +41,13 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
         public TextView history_location;
         public ImageView history_heart;
         public FavoriteInfo favoriteInfo;
+        public ArrayList<SelectBean> selectBeans;
         public ViewHolder(View convertView){
             super(convertView);
             history_location=convertView.findViewById(R.id.history_location);
             history_heart=convertView.findViewById(R.id.history_heart);
             favoriteInfo=new FavoriteInfo(convertView.getContext());
+            selectBeans=new ArrayList<SelectBean>();
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,20 +70,26 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
                     DB=favoriteInfo.getWritableDatabase();
                     int position=getAdapterPosition();
                     int id=data.get(position).getId();
+                    String query="select heart from favorite where id='"+id+"';";
+                    Cursor cursor=DB.rawQuery(query,null);
+                    String heart="";
+                    while(cursor.moveToNext()) {
+                        heart=cursor.getString(0);
+                    }
 
                     if(position!=RecyclerView.NO_POSITION){
-                        if(v.isSelected()) {
-                            v.setSelected(false);
-                            String query = "UPDATE favorite set heart='N' where id='" + id + "';";
-                            DB.execSQL(query);
+                        if(heart.equals("Y")) {
+                            String query2 = "UPDATE favorite set heart='N' where id='" + id + "';";
+                            DB.execSQL(query2);
                             history_heart.setImageResource(R.drawable.ic_favorite);
-                        }else{
-                            v.setSelected(true);
-                            String query = "UPDATE favorite set heart='Y' where id='" + id + "';";
-                            DB.execSQL(query);
+                        }
+                        if(heart.equals("N")){
+                            String query2 = "UPDATE favorite set heart='Y' where id='" + id + "';";
+                            DB.execSQL(query2);
                             history_heart.setImageResource(R.drawable.ic_favorite_red);
                         }
                     }
+
                 }
             });
         }

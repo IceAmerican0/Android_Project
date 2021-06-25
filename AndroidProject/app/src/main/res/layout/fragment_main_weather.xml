@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="오늘의 옷 추천"
+                    android:text="@string/main_recommend"
                     android:textColor="@color/black"
                     android:textSize="30dp"
                     android:layout_marginBottom="20dp"/>
@@ -169,10 +169,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="시간별 날씨"
+                    android:text="@string/main_hour"
                     android:gravity="center"
                     android:textSize="30dp"
                     android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -198,10 +200,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="일자 별 날씨"
+                    android:text="@string/main_day"
                     android:gravity="center"
                     android:textSize="30dp"
                     android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView

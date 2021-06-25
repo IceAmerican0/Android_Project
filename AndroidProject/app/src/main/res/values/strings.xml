@@ -43,4 +43,16 @@
 
     <!--메인메뉴 - 설정탭 - 광고관리(관리자) -->
     <string name="admin_title">광고관리(관리자)</string>
+
+
+
+
+    <!--  메인, 즐겨찾기 String 설정   -->
+
+    <!-- 메인 오늘의 옷 추천 -->
+    <string name="main_recommend">오늘의 옷 추천</string>
+    <string name="main_hour">시간별 날씨</string>
+    <string name="main_day">주간 날씨</string>
+
+
 </resources>

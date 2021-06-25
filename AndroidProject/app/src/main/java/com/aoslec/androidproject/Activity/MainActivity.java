@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
     }//onCreate
 
-
-//                Intent intent=new Intent(MainActivity.this,GPSActivity.class);
-//                startActivity(intent);
+    public void refresh(){
+        adapter.notifyDataSetChanged();
+    }
 
 }

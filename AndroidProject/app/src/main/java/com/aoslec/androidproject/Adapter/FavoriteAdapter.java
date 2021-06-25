@@ -1,6 +1,8 @@
 package com.aoslec.androidproject.Adapter;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.aoslec.androidproject.Bean.FavoriteHistoryBean;
 import com.aoslec.androidproject.Bean.FavoriteLatLongBean;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.sqLite.FavoriteInfo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,12 +40,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         public TextView favorite_current_location,favorite_current_temp;
         public ImageView favorite_current_heart;
         public LottieAnimationView favorite_laCover;
+        public FavoriteInfo favoriteInfo;
         public ViewHolder(View convertView){
             super(convertView);
             favorite_current_location=convertView.findViewById(R.id.favorite_current_location);
             favorite_current_temp=convertView.findViewById(R.id.favorite_current_temp);
             favorite_laCover=convertView.findViewById(R.id.favorite_laCover);
             favorite_current_heart=convertView.findViewById(R.id.favorite_current_heart);
+            favoriteInfo=new FavoriteInfo(convertView.getContext());
 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,6 +60,35 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                         SaveSharedPreferences.setLocation(convertView.getContext(), data.get(position).getLocation());
                     }
 
+                }
+            });
+
+            favorite_current_heart.setOnClickListener(new View.OnClickListener() {
+                SQLiteDatabase DB;
+                @Override
+                public void onClick(View v) {
+                    DB=favoriteInfo.getWritableDatabase();
+                    int position=getAdapterPosition();
+                    int id=data.get(position).getId();
+                    String query="select heart from favorite where id='"+id+"';";
+                    Cursor cursor=DB.rawQuery(query,null);
+                    String heart="";
+                    while(cursor.moveToNext()) {
+                        heart=cursor.getString(0);
+                    }
+
+                    if(position!=RecyclerView.NO_POSITION){
+                        if(heart.equals("Y")) {
+                            String query2 = "UPDATE favorite set heart='N' where id='" + id + "';";
+                            DB.execSQL(query2);
+                            favorite_current_heart.setImageResource(R.drawable.ic_favorite);
+                        }
+                        if(heart.equals("N")){
+                            String query2 = "UPDATE favorite set heart='Y' where id='" + id + "';";
+                            DB.execSQL(query2);
+                            favorite_current_heart.setImageResource(R.drawable.ic_favorite_red);
+                        }
+                    }
                 }
             });
         }
@@ -71,7 +105,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public void onBindViewHolder(FavoriteAdapter.ViewHolder holder, int position) {
         holder.favorite_current_location.setText(data.get(position).getLocation());
         holder.favorite_current_heart.setImageResource(R.drawable.ic_favorite_red);
-        holder.favorite_current_temp.setText(Integer.toString(data.get(position).getTemp()));
+        holder.favorite_current_temp.setText(Integer.toString(data.get(position).getTemp())+"°");
 
         int id=data.get(position).getId();
 

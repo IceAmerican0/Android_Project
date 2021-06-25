@@ -20,4 +20,7 @@
     <string name="none">none</string>
     <string name="color">color</string>
     <string name="theme">theme</string>
+    <string name="main_recommend">Clothes Recommendation</string>
+    <string name="main_hour">Hourly Weather</string>
+    <string name="main_day">Daily Weather</string>
 </resources>

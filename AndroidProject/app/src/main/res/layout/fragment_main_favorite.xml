@@ -25,16 +25,18 @@
 
 
         <EditText
+            android:id="@+id/favorite_edit"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="9"
             android:hint="검색할 지역을 입력하세요"
             android:layout_marginLeft="10dp"
-            android:textSize="10dp"
-            android:gravity="center|left"
+            android:textSize="15dp"
+            android:gravity="center"
             />
 
         <ImageView
+            android:id="@+id/favorite_search"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
