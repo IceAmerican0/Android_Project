@@ -31,7 +31,7 @@ public class SaveSharedPreferences {
 
     //값을 불러올때 사용 url 본인것으로 바꾸면 됨.
     public static String getUrl(Context ctx) {
-        return getSharedPreferences(ctx).getString(url, "http://192.168.0.7:8080/project/");
+        return getSharedPreferences(ctx).getString(url, "http://192.168.145.42:8080/project/");
     }
 
     public static void setUrl(Context ctx, String sUrl) {
@@ -51,7 +51,7 @@ public class SaveSharedPreferences {
 
     //값을 불러올때 사용
     public static String getLangMethod(Context ctx) {
-        return getSharedPreferences(ctx).getString(lang, "ko");
+        return getSharedPreferences(ctx).getString(lang, "en");
     }
 
 
