@@ -64,6 +64,7 @@ public class Main_FavoriteFragment extends Fragment {
     Main_WeatherFragment main_weatherFragment;
     MainTabAdapter mainTabAdapter;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -131,6 +132,7 @@ public class Main_FavoriteFragment extends Fragment {
     }
 
     private void GetHistoryData() {
+        favoriteLocations.clear();
         try {
             DB = favoriteInfo.getWritableDatabase();
             String query = "select * from favorite order by id desc;";
@@ -224,6 +226,7 @@ public class Main_FavoriteFragment extends Fragment {
             // 콤마를 기준으로 split
             String[] splitStr = addressList.get(0).toString().split(",");
             String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1, splitStr[0].length() - 2); // 주소
+            String adminAddress=addressList.get(0).getAdminArea();
 
             Log.d("searchLocation", "splitStr : " + splitStr);
             Log.d("searchLocation", "addressList : " + addressList.get(0).toString());
@@ -238,7 +241,7 @@ public class Main_FavoriteFragment extends Fragment {
 
             try{
                 DB=favoriteInfo.getWritableDatabase();
-                String query2="INSERT INTO favorite(location,latitude,longitude,heart) VALUES('"+address+"','"+latitude+"','"+longitude+"','N');";
+                String query2="INSERT INTO favorite(location,latitude,longitude,heart) VALUES('"+adminAddress+"','"+latitude+"','"+longitude+"','N');";
                 DB.execSQL(query2);
 
                 favoriteInfo.close();

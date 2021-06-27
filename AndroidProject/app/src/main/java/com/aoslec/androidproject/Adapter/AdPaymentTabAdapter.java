@@ -24,7 +24,6 @@ public class AdPaymentTabAdapter extends FragmentPagerAdapter {
         this.tabCount = behavior;
     }
 
-
     @Override
     public Fragment getItem(int position) {
         Log.v("Message", "public Fragment getItem/TabPagerAdapter");
