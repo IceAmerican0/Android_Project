@@ -59,7 +59,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.list_daily_pop.setText("강수확률 : " + data.get(position).getDaily_pop()+"°");
+        holder.list_daily_pop.setText("강수확률 : " + data.get(position).getDaily_pop()+"%");
         holder.list_daily_temp_max.setText("최고 : " + data.get(position).getDaily_temp_max()+"°");
         holder.list_daily_temp_min.setText("최저 : " + data.get(position).getDaily_temp_min()+"°");
         holder.list_daily_time.setText(data.get(position).getDaily_time());

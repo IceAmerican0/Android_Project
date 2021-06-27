@@ -46,31 +46,29 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
         }
     }
 
-    @NonNull
-    @NotNull
     @Override
-    public HourlyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public HourlyWeatherAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_hourly_weather,parent,false);
         ViewHolder viewHolder=new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull HourlyWeatherAdapter.ViewHolder holder, int position) {
-       holder.hourly_temp.setText("온도 : "+data.get(position).getHourly_temp()+"°");
-       holder.hourly_pop.setText("강수 확률 : "+data.get(position).getHourly_pop()+"%");
-       holder.hourly_time.setText(data.get(position).getHourly_time());
+    public void onBindViewHolder(HourlyWeatherAdapter.ViewHolder holder, int position) {
+        holder.hourly_temp.setText("온도 : "+data.get(position).getHourly_temp()+"°");
+        holder.hourly_pop.setText("강수 확률 : "+data.get(position).getHourly_pop()+"%");
+        holder.hourly_time.setText(data.get(position).getHourly_time());
 
-       int id=data.get(position).getHourly_id();
+        int id=data.get(position).getHourly_id();
 
-       if(id>=200&&id<=232) holder.hourly_LAweather.setAnimation(R.raw.thunder_rain);
-       else if(id>=300&&id<=321) holder.hourly_LAweather.setAnimation(R.raw.rainy);
-       else if(id>=500&&id<=531) holder.hourly_LAweather.setAnimation(R.raw.rain);
-       else if(id>=600&&id<=622) holder.hourly_LAweather.setAnimation(R.raw.snow);
-       else if(id==800) holder.hourly_LAweather.setAnimation(R.raw.sunny);
-       else if(id>=800&&id<=802) holder.hourly_LAweather.setAnimation(R.raw.cloudy_sun);
-       else if(id>=803) holder.hourly_LAweather.setAnimation(R.raw.cloudy);
-       else holder.hourly_LAweather.setAnimation(R.raw.cloudy);
+        if(id>=200&&id<=232) holder.hourly_LAweather.setAnimation(R.raw.thunder_rain);
+        else if(id>=300&&id<=321) holder.hourly_LAweather.setAnimation(R.raw.rainy);
+        else if(id>=500&&id<=531) holder.hourly_LAweather.setAnimation(R.raw.rain);
+        else if(id>=600&&id<=622) holder.hourly_LAweather.setAnimation(R.raw.snow);
+        else if(id==800) holder.hourly_LAweather.setAnimation(R.raw.sunny);
+        else if(id>=800&&id<=802) holder.hourly_LAweather.setAnimation(R.raw.cloudy_sun);
+        else if(id>=803) holder.hourly_LAweather.setAnimation(R.raw.cloudy);
+        else holder.hourly_LAweather.setAnimation(R.raw.cloudy);
 
     }
 

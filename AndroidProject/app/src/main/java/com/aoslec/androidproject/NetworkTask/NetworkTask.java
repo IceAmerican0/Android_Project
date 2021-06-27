@@ -47,7 +47,6 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("Dialog");
         progressDialog.setMessage("Get . . . .");
-        progressDialog.show();
     }
 
     @Override
@@ -224,6 +223,11 @@ public class NetworkTask extends AsyncTask<Integer,String,Object> {
         String formattedTime=sdf.format(date);
         return formattedTime;
     }
+
+    // -------------------관리자 페이지 부분 ---------------
+
+
+
 
 }
 

@@ -1,10 +1,11 @@
 package com.aoslec.androidproject.Fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,24 +13,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.aoslec.androidproject.Activity.GPSActivity;
-import com.aoslec.androidproject.Activity.MainActivity;
-import com.aoslec.androidproject.Adapter.CurrentWeatherAdapter;
 import com.aoslec.androidproject.Adapter.DailyWeatherAdapter;
 import com.aoslec.androidproject.Adapter.HourlyWeatherAdapter;
+import com.aoslec.androidproject.Bean.ClothesBean;
 import com.aoslec.androidproject.Bean.CurrentWeatherBean;
 import com.aoslec.androidproject.Bean.DailyWeatherBean;
 import com.aoslec.androidproject.Bean.HourlyWeatherBean;
 import com.aoslec.androidproject.NetworkTask.NetworkTask;
 import com.aoslec.androidproject.R;
-import com.aoslec.androidproject.SaveSharedPreferences.SaveSharedPreferences;
+import com.aoslec.androidproject.SQLite.ClothesSQLite;
+import com.aoslec.androidproject.Share.SaveSharedPreferences;
+import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Main_WeatherFragment extends Fragment {
@@ -47,16 +53,41 @@ public class Main_WeatherFragment extends Fragment {
 
     CurrentWeatherBean current_weather;
 
-    TextView main_tvTemp,main_tvLocation;
+    TextView main_tvTemp,main_tvLocation,main_time;
     LottieAnimationView main_laCover;
 
     private String Lat="";
     private String Long="";
     private String Location="";
 
+
+    //옷차림 추천
+    ClothesSQLite clothesSQLite;
+    ArrayList<ClothesBean> clothesBeans = new ArrayList<>();
+    ImageView item1, item2, item3, item4, item5;
+    String sTemp,sItem1, sItem2, sItem3, sItem4, sItem5;
+    String url,clothesColor;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_weather, container, false);
+
+
+        //옷차림 추천란
+        clothesSQLite = new ClothesSQLite(getActivity());
+
+        item1 = view.findViewById(R.id.main_item1);
+        item2 = view.findViewById(R.id.main_item2);
+        item3 = view.findViewById(R.id.main_item3);
+        item4 = view.findViewById(R.id.main_item4);
+        item5 = view.findViewById(R.id.main_item5);
+
+
+        url = SaveSharedPreferences.getUrl(getContext());
+        clothesColor = SaveSharedPreferences.getClothesColor(getContext());
+
+        //////////
 
         rvHourWeather=view.findViewById(R.id.main_rvHourWeather);
         rvDailyWeather=view.findViewById(R.id.main_rvDailyWeather);
@@ -71,11 +102,13 @@ public class Main_WeatherFragment extends Fragment {
         main_tvLocation=view.findViewById(R.id.main_tvLocation);
         main_laCover=view.findViewById(R.id.main_laCover);
         main_GPS=view.findViewById(R.id.main_GPS);
+        main_time=view.findViewById(R.id.main_time);
 
         Long=SaveSharedPreferences.getLong(getContext());
         Lat=SaveSharedPreferences.getLat(getContext());
         Location=SaveSharedPreferences.getLocation(getContext());
 
+        GetTime();
         GetCurrentData();
         GetHourlyData();
         GetDailyData();
@@ -99,9 +132,100 @@ public class Main_WeatherFragment extends Fragment {
         Lat=SaveSharedPreferences.getLat(getContext());
         Location=SaveSharedPreferences.getLocation(getContext());
 
+        GetTime();
         GetCurrentData();
         GetHourlyData();
         GetDailyData();
+
+        //옷차림 추천
+       GetClothes();
+    }
+
+    //옷차림 메소드
+    private void GetClothes() {
+
+        SQLiteDatabase DB;
+        int iTemp = current_weather.getCurrent_temp();
+
+        Log.v("ggg","iTemp? " + iTemp);
+
+        //범위 정해주기
+        if (iTemp>=30){
+            sTemp = "30º ▲";
+        }else if (iTemp<30 && iTemp>=25){
+            sTemp = "25º ~ 30º";
+        }else if (iTemp<25 && iTemp>=20){
+            sTemp = "20º ~ 25º";
+        }else if (iTemp<20 && iTemp>=15){
+            sTemp = "15º ~ 20º";
+        }else if (iTemp<15 && iTemp>=10){
+            sTemp = "10º ~ 15º";
+        }else if (iTemp<10 && iTemp>=5){
+            sTemp = "5º ~ 10º";
+        }else if (iTemp<5 && iTemp>=0){
+            sTemp = "0º ~ 5º";
+        }else if (iTemp<0 && iTemp>=-5){
+            sTemp = "0º ~ -5º";
+        }else if (iTemp<-5){
+            sTemp = "-5º ▼";
+        }
+
+        Log.v("ggg","sTemp? " + sTemp);
+        //값 가져오기
+        try{
+            clothesBeans.clear();
+            DB = clothesSQLite.getReadableDatabase();
+            String query = "Select item1, item2, item3, item4, item5 FROM clothes WHERE Temperature='"+ sTemp + "';";
+            Cursor cursor = DB.rawQuery(query, null);
+
+            while (cursor.moveToNext()){
+                sItem1 = cursor.getString(0);
+                sItem2 = cursor.getString(1);
+                sItem3 = cursor.getString(2);
+                sItem4 = cursor.getString(3);
+                sItem5 = cursor.getString(4);
+                Log.v("ggg","sItem1? " + sItem1);
+
+                ClothesBean item = new ClothesBean(sItem1,sItem2,sItem3,sItem4,sItem5);
+                clothesBeans.add(item);
+            }
+            cursor.close();
+            clothesSQLite.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.v("ggg","값 가져옴?? " + clothesBeans.get(0).getItem1());
+        //뷰어 넣어주기
+        Glide.with(getActivity())
+                .load(url+clothesColor+clothesBeans.get(0).getItem1())
+                .error("")
+                .into(item1);
+        Glide.with(getActivity())
+                .load(url+clothesColor+clothesBeans.get(0).getItem2())
+                .error("")
+                .into(item2);
+        Glide.with(getActivity())
+                .load(url+clothesColor+clothesBeans.get(0).getItem3())
+                .error("")
+                .into(item3);
+        Glide.with(getActivity())
+                .load(url+clothesColor+clothesBeans.get(0).getItem4())
+                .error("")
+                .into(item4);
+        Glide.with(getActivity())
+                .load(url+clothesColor+clothesBeans.get(0).getItem5())
+                .error("")
+                .into(item5);
+    }
+
+    private void GetTime(){
+        long now=System.currentTimeMillis();
+        Date mDate=new Date(now);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM.dd  hh:mm");
+        String getTime=simpleDateFormat.format(mDate);
+
+        main_time.setText(getTime);
     }
 
     private void GetDailyData(){
@@ -149,7 +273,7 @@ public class Main_WeatherFragment extends Fragment {
             Object obj=networkTask.execute().get();
             current_weathers= (ArrayList<CurrentWeatherBean>) obj;
 
-           current_weather= current_weathers.get(0);
+            current_weather= current_weathers.get(0);
 
             main_tvTemp.setText(Integer.toString(current_weather.getCurrent_temp())+"°");
             main_tvLocation.setText(Location);

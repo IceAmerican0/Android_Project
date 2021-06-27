@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AdActivity"
+    tools:context=".AdActivity.AdActivity"
     android:padding="30dp"
     android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
     <LinearLayout
         android:orientation="horizontal"
@@ -35,15 +40,16 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="회사명"
+            android:text="광고명"
             android:textSize="25dp"
             android:gravity="center"
             android:layout_gravity="center"
             />
         <EditText
+            android:id="@+id/register_etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="회사명을 입력해주세요."
+            android:hint="광고명을 입력해주세요."
             android:textSize="20dp"
             android:layout_marginLeft="10dp"
             android:inputType="text"
@@ -67,12 +73,13 @@
             android:layout_gravity="center"
             />
         <EditText
+            android:id="@+id/register_etUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="광고 URL를 입력해주세요."
             android:textSize="20dp"
             android:layout_marginLeft="10dp"
-            android:inputType="number"
+            android:inputType="text"
             android:layout_gravity="center"
             android:imeOptions="actionDone"
             />
@@ -91,14 +98,42 @@
             android:textSize="25dp"
             android:gravity="center"
             />
-        <TextView
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1개월 / 2개월 / 3개월 등"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
-            />
+            >
+            <RadioGroup
+                android:id="@+id/register_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+                <RadioButton
+                    android:id="@+id/register_rbtn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1개월 / 10000원"
+                    android:textSize="20dp"
+                    />
+                <RadioButton
+                    android:id="@+id/register_rbtn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2개월 / 20000원"
+                    android:textSize="20dp"
+                    />
+                <RadioButton
+                    android:id="@+id/register_rbtn3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3개월 / 30000원"
+                    android:textSize="20dp"
+                    />
+
+            </RadioGroup>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -110,7 +145,8 @@
         android:text="결제 및 등록요청"
         android:textSize="20dp"
         android:layout_margin="30dp"
-
         />
+    </LinearLayout>
 
-</LinearLayout>
+
+</ScrollView>

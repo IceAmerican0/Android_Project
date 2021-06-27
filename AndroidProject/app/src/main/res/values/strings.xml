@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <!--api key-->
+    <string name="kakao_app_key" translatable="false">8f4b4037c9a1029da55cfd56d5ff446f</string>
+    <string name="kakaopay_app_key" translatable="false">8f4b4037c9a1029da55cfd56d5ff446f</string>
+    <string name="google_login_key" translatable="false">AIzaSyDF7zu10q9mWVw9GiEg7ZsIF70DiVagko8</string>
+
 
     <!--팁창-->
     <string name="explain_title1">오늘날씨 어때요?</string>
@@ -31,11 +36,33 @@
     <string name="language">언어</string>
 
     <!--메인메뉴 - 설정탭 - 온도별 옷 설정 -->
-    <string name="clothes_title">온도별 옷설정</string>
+    <string name="clothes_title">온도별 옷차림</string>
 
     <!--메인메뉴 - 설정탭 - 광고요청 -->
     <string name="ad_title">광고요청</string>
 
     <!--메인메뉴 - 설정탭 - 광고관리(관리자) -->
     <string name="admin_title">광고관리(관리자)</string>
+
+
+    <!--  메인, 즐겨찾기 String 설정   -->
+
+    <!-- 메인 오늘의 옷 추천 -->
+    <string name="main_recommend">오늘의 옷 추천</string>
+    <string name="main_hour">시간별 날씨</string>
+    <string name="main_day">주간 날씨</string>
+
+    <!--추가 String -->
+    <string name="ClothesChoice">옷차림</string>
+    <string name="ClothesChoiceMax">기온별 옷차림은 최대 5개입니다.</string>
+    <string name="ClothesChoiceMin">기온별 옷차림은 최소 1개 이상입니다.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <string name="setting_login_signup">로그인 / 회원가입</string>
+    <string name="singin_autoLogin">자동로그인</string>
+    <string name="singin_findIdPw">아이디/비밀번호찾기 ></string>
+    <string name="singin_signup">회원가입</string>
+
+
 </resources>

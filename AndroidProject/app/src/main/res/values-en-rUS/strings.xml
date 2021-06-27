@@ -20,4 +20,14 @@
     <string name="none">none</string>
     <string name="color">color</string>
     <string name="theme">theme</string>
+    <string name="main_recommend">Clothes Recommendation</string>
+    <string name="main_hour">Hourly Weather</string>
+    <string name="main_day">Daily Weather</string>
+    <string name="ClothesChoice">Clothing</string>
+    <string name="ClothesChoiceMax">There are up to 5</string>
+    <string name="ClothesChoiceMin">There are at least 1</string>
+    <string name="setting_login_signup">Login / Sign up</string>
+    <string name="singin_autoLogin">autologin</string>
+    <string name="singin_findIdPw">findid/pw ></string>
+    <string name="singin_signup">signup</string>
 </resources>
