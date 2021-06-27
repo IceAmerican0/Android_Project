@@ -1,4 +1,4 @@
-package com.aoslec.androidproject.AdActivity;
+package com.aoslec.androidproject.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,10 +28,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.aoslec.androidproject.Activity.PayActivity;
 import com.aoslec.androidproject.NetworkTask.ImageNetworkTask;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.Share.ShareVar;

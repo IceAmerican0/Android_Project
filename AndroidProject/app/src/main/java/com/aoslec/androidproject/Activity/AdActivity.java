@@ -68,7 +68,7 @@ public class AdActivity extends Activity {
 
         String macIP = saveSharedPreferences.getUrl(AdActivity.this);
 
-        email = "project3@naver.com"; // 추후 쉐어프리퍼런스로
+        email = SaveSharedPreferences.getPrefEmail(AdActivity.this); // 추후 쉐어프리퍼런스로
 
         urlAddr = macIP + "adInsert.jsp?";
 

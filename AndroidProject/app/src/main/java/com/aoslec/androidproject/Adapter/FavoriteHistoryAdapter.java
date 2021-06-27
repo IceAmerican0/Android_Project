@@ -1,6 +1,9 @@
 package com.aoslec.androidproject.Adapter;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -10,14 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.aoslec.androidproject.Activity.IntroActivity;
 import com.aoslec.androidproject.Activity.MainActivity;
+import com.aoslec.androidproject.Activity.NormalSettingActivity;
 import com.aoslec.androidproject.Bean.FavoriteHistoryBean;
 import com.aoslec.androidproject.Bean.SelectBean;
 import com.aoslec.androidproject.Fragment.Main_FavoriteFragment;
@@ -72,8 +77,11 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
                         SaveSharedPreferences.setLat(convertView.getContext(), data.get(position).getLatitude());
                         SaveSharedPreferences.setLong(convertView.getContext(), data.get(position).getLongitude());
                         SaveSharedPreferences.setLocation(convertView.getContext(), data.get(position).getLocation());
-                    }
 
+                        Intent intent = new Intent(mcontext, MainActivity.class);
+                        mcontext.startActivity(intent);
+                        ((Activity)mcontext).finish();
+                    }
                 }
             });
 
@@ -101,19 +109,37 @@ public class FavoriteHistoryAdapter extends RecyclerView.Adapter<FavoriteHistory
                             String query2 = "UPDATE favorite set heart='Y' where id='" + id + "';";
                             DB.execSQL(query2);
                             history_heart.setImageResource(R.drawable.ic_favorite_red);
+
+                            SaveSharedPreferences.setLat(convertView.getContext(), data.get(position).getLatitude());
+                            SaveSharedPreferences.setLong(convertView.getContext(), data.get(position).getLongitude());
+                            SaveSharedPreferences.setLocation(convertView.getContext(), data.get(position).getLocation());
+
+                            Intent intent = new Intent(mcontext, MainActivity.class);
+                            mcontext.startActivity(intent);
+                            ((Activity)mcontext).finish();
                         }
                     }
 
+                    Main_FavoriteFragment fragment = new Main_FavoriteFragment();
+                    FragmentTransaction ft = ((AppCompatActivity)mcontext).getSupportFragmentManager().beginTransaction();
+                    ft.detach(fragment).attach(fragment).commit();
+
+
+
+
+
 //                    tabLayout.selectTab(tabLayout.getTabAt(0));
+
+
 
 //
 //                    Fragment frg=null;
 //                    frg=((MainActivity)mcontext).getSupportFragmentManager().findFragmentById(R.id.favorite_currentView);
 
-
-                    ((MainActivity)mcontext).refresh();
+//                    ((MainActivity)mcontext).refresh();
 
                 }
+
             });
         }
     }

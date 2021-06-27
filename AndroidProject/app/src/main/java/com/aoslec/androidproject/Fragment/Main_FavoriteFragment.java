@@ -1,6 +1,8 @@
 package com.aoslec.androidproject.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
@@ -8,6 +10,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -31,6 +34,7 @@ import com.aoslec.androidproject.Bean.FavoriteLocationBean;
 import com.aoslec.androidproject.NetworkTask.NetworkTask;
 import com.aoslec.androidproject.R;
 import com.aoslec.androidproject.SQLite.FavoriteInfo;
+import com.aoslec.androidproject.Share.SaveSharedPreferences;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -106,15 +110,12 @@ public class Main_FavoriteFragment extends Fragment {
 
                 searchLocation(location);
 
-
+                GetHistoryData();
 
 //                transaction.replace(R.id.main_fragment,main_weatherFragment);
 
             }
         });
-
-        GetHistoryData();
-        GetFavoriteData();
 
         return view;
     }
@@ -123,15 +124,12 @@ public class Main_FavoriteFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        favoriteHistoryAdapter.notifyDataSetChanged();
-        favoriteAdapter.notifyDataSetChanged();
-
         GetHistoryData();
         GetFavoriteData();
 
     }
 
-    private void GetHistoryData() {
+    public void GetHistoryData() {
         favoriteLocations.clear();
         try {
             DB = favoriteInfo.getWritableDatabase();
@@ -158,9 +156,13 @@ public class Main_FavoriteFragment extends Fragment {
             e.printStackTrace();
         }
 
+        //도우수정 // 프레그먼트 재시작!
+        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+        ft.detach(Main_FavoriteFragment.this).attach(Main_FavoriteFragment.this).commit();
+
     }//GetHistoryData()
 
-    private void GetFavoriteData() {
+    public void GetFavoriteData() {
         try {
             favoriteLocationBeans.clear();
             favoriteLatLongBeans.clear();
@@ -205,6 +207,7 @@ public class Main_FavoriteFragment extends Fragment {
 
             favoriteAdapter = new FavoriteAdapter(getActivity(), R.layout.recycler_current_weather, favoriteLatLongBeans);
             rvFavorite.setAdapter(favoriteAdapter);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,19 +249,13 @@ public class Main_FavoriteFragment extends Fragment {
 
                 favoriteInfo.close();
 
-                Toast.makeText(getContext(),"Insert OK!",Toast.LENGTH_SHORT).show();
 
                 //새로고침
-                ((MainActivity)getActivity()).refresh();
+//                ((MainActivity)getActivity()).refresh();
             }catch(Exception e){
                 e.printStackTrace();
-                Toast.makeText(getContext(),"Insert Error!",Toast.LENGTH_SHORT).show();
             }
 
-
         }
-
-
-
     }
 }

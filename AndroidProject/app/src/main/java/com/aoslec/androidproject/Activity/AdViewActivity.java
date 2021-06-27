@@ -1,4 +1,4 @@
-package com.aoslec.androidproject.AdActivity;
+package com.aoslec.androidproject.Activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.aoslec.androidproject.NetworkTask.AdPayment_NetworkTask;
 import com.aoslec.androidproject.R;

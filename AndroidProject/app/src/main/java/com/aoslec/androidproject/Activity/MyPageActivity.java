@@ -21,12 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.aoslec.androidproject.AdActivity.AdPaymentActicity;
 import com.aoslec.androidproject.Bean.Ad_PaymentBean;
 import com.aoslec.androidproject.Bean.User;
 import com.aoslec.androidproject.NetworkTask.AdPayment_NetworkTask;
@@ -49,7 +46,7 @@ public class MyPageActivity extends Activity {
     ViewPager viewPager;
     GoogleSignInClient mGoogleSignInClient;
     ArrayList<User> users;
-    LinearLayout layout_now, layout_wait, layout_history, layout_cancel;
+    LinearLayout layout_now, layout_wait, layout_history, layout_cancel,AdLL;
     ImageView iv_profile;
     WebView wv_profile;
     TextView tv_name, tv_logout, linear2_name, linear2_email, linear2_phone, tv_link,
@@ -86,7 +83,9 @@ public class MyPageActivity extends Activity {
         linear2_email.setText(SaveSharedPreferences.getPrefEmail(MyPageActivity.this));
         linear2_phone.setText(SaveSharedPreferences.getPrefPhone(MyPageActivity.this));
 
-        ad_countAction();
+
+        //도우 추가수정 > admin 로그인시 광고갯수창 지정
+        AdLL = findViewById(R.id.myPage_AdLL);
 
         //profile 이미지를 동그랗게
         iv_profile.setBackground(new ShapeDrawable(new OvalShape()));
@@ -144,6 +143,13 @@ public class MyPageActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        ad_countAction();
+
+        
+        //도우 추가수정 > admin 로그인시 광고갯수창 안보임.
+        if(SaveSharedPreferences.getPrefEmail(MyPageActivity.this).equals("admin")){
+            AdLL.setVisibility(View.INVISIBLE);
+        }
     }
 
     View.OnClickListener logoutAction = new View.OnClickListener() {
@@ -156,9 +162,9 @@ public class MyPageActivity extends Activity {
                         public void onCompleteLogout() {
                             SaveSharedPreferences.setPrefIsLogin(MyPageActivity.this, "n");
                             SaveSharedPreferences.setPrefAutoLogin(MyPageActivity.this, "n");
-                            Intent intent = new Intent(MyPageActivity.this, SignInActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+//                            Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            startActivity(intent);
 //                            finish();
                         }
                     });
@@ -175,16 +181,24 @@ public class MyPageActivity extends Activity {
 //                    finish();
                     break;
                 case "" :
+                    //도우추가 로그아웃시 이메일 초기화
+                    SaveSharedPreferences.setPrefEmail(MyPageActivity.this, "");
+                    
                     SaveSharedPreferences.setPrefIsLogin(MyPageActivity.this, "n");
                     SaveSharedPreferences.setPrefAutoLogin(MyPageActivity.this, "n");
-                    Intent intent = new Intent(MyPageActivity.this, SignInActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+//                    startActivity(intent);
 //                    finish();
                     break;
                 default:
                     break;
             }
-            Intent intent = new Intent(MyPageActivity.this, SignInActivity.class);
+            
+            //도우추가수정 > 로그아웃시 초기화 후 메인페이지로 이동
+            Intent intent = new Intent(MyPageActivity.this, MainActivity.class);
+            intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+            finish();
             startActivity(intent);
         }
     };

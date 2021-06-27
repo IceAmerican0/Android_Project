@@ -1,4 +1,4 @@
-package com.aoslec.androidproject.AdActivity;
+package com.aoslec.androidproject.Activity;
 
 import android.app.Activity;
 import android.app.FragmentManager;
